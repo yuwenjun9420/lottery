@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>抽奖</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="luck-back">
+        <div class="luck-content">
+            <div class="luck-user">
+                <div class="img-wrapper">
+                    <span class="name">王尼玛</span>
+                </div>
+            </div>
+            <div class="luck-start"><span id="btnStart" class="luck-start-btn">开始</span></div>
+            <div class="luck-winner">
+                <div class="luck-title"><span>中奖名单</span></div>
+                <ul class="luck-list"></ul>
+                <div class="luck-winner-btn">
+                    <span>中奖人</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="config.js"></script>
+<script>
+    "use strict"
+    $(function () {
+        var timer = '', timeList='',i = 0, running = true;
+        var pCount = emps.length //本次参加抽奖人数
+        const lotteryNumer = 3; //设置本次中奖人数(防修改)
+        var lotteryNum = lotteryNumer; //设置本次中奖人数
+        var trigger = true; //设置是否正在自动抽奖
+        
+        //开始抽奖
+        var draw = function () {
+            timer = setInterval(function () {
+                i = Math.floor(Math.random() * pCount);
+                $('.luck-back .luck-user .img-wrapper').css('background-image', `url(${emps[i].img})`);
+                $('.luck-back .luck-user .img-wrapper .name').html(emps[i].ename);
+            }, 100);
+        }
+        //打印中奖名单
+        var printWinner = function () {
+            lotteryNum--;
+            $('#btnStart').html(`自动抽取(${lotteryNum})人`);
+            if (lotteryNum <= 0) {
+                clearInterval(timeList);
+                lotteryNum = lotteryNumer;
+                trigger = true;
+                $('#btnStart').html('开始');
+            }
+            $('.luck-winner .luck-list').append(`<li><i class="small-img" style="background-image:url(${emps[i].img})"></i><span class="user">${emps[i].ename}</span></li>`);
+            emps.splice(i, 1);
+            pCount--;
+        }
+        $('#btnStart').click(function () {
+            if (running) {
+                if (pCount < lotteryNum) {
+                    alert(`抽奖人数不足${lotteryNum}`);
+                    return;
+                }
+                running = false;
+                if (trigger) {
+                    $(this).html('停止');
+                }
+                draw();
+            } else {
+                $('#btnStart').html(`自动抽取(${lotteryNum})人`);
+                if (trigger) {
+                    trigger = false;
+                    timeList = setInterval(function () {
+                        clearInterval(timer);
+                        if (running) {
+                            draw();
+                        } else {
+                            printWinner();
+                        }
+                        running=!running;
+                    }, 1000);
+                }
+            }
+        });
+    });
+</script>
+</html>

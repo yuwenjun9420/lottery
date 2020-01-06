@@ -1,0 +1,16 @@
+emps=[
+    { ename: '王尼玛', img: 'img/1.jpg' },
+    { ename: '张全蛋', img: 'img/2.jpg' },
+    { ename: '纸巾老撕', img: 'img/3.jpg' },
+    { ename: '赵铁柱', img: 'img/4.jpg' },
+    { ename: '唐马儒', img: 'img/5.jpg' },
+    { ename: '田二妞', img: 'img/6.jpg' },
+    { ename: '木子女神', img: 'img/7.jpg' },
+    { ename: '卡卡罗特', img: 'img/1.jpg' },
+    { ename: '贝吉塔', img: 'img/2.jpg' },
+    { ename: '克林', img: 'img/3.jpg' },
+    { ename: '比克', img: 'img/4.jpg' },
+    { ename: '天津饭', img: 'img/5.jpg' },
+    { ename: '雅木茶', img: 'img/6.jpg' },
+    { ename: '布玛', img: 'img/7.jpg' },
+]
